@@ -24,6 +24,8 @@ Two scripts (SSJS) that clones data extensions from the data views and create th
 - _JourneyActivity
 - _Bounce
 - _PushAddress
+- _smsmessagetracking
+- _SMSSubscriptionLog
 
 ## Sample of Script
 ### data extension
@@ -86,7 +88,3 @@ Two scripts (SSJS) that clones data extensions from the data views and create th
 ## Going further
 - [Data views](https://help.salesforce.com/articleView?id=mc_as_data_views.htm&type=5)
 - [SSJS](https://developer.salesforce.com/docs/atlas.en-us.mc-programmatic-content.meta/mc-programmatic-content/ssjs_syntaxGuide.htm)
-
-
-
- 
