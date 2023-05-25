@@ -1,0 +1,176 @@
+<script runat="server">
+Platform.Load("Core", "1.1.1");
+try {
+    var queryDef1 = {
+        Name: "MC_job_data_view_dailydelta",
+        CustomerKey: "MC_job_data_view_dailydelta",
+        TargetUpdateType: "Update",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_job_data_view",
+            CustomerKey: "MC_job_data_view"
+        },
+        QueryText: "SELECT job.JobID, job.EmailID, job.AccountID, job.AccountUserID, job.FromName, job.FromEmail, job.SchedTime, job.PickupTime, job.DeliveredTime, job.EventID, job.IsMultipart, job.JobType, job.JobStatus, job.ModifiedBy, job.ModifiedDate, job.EmailName, job.EmailSubject, job.IsWrapped, job.TestEmailAddr, job.Category, job.BccEmail, job.OriginalSchedTime, job.CreatedDate, job.CharacterSet, job.IPAddress, job.SalesForceTotalSubscriberCount, job.SalesForceErrorSubscriberCount, job.SendType, job.DynamicEmailSubject, job.SuppressTracking, job.SendClassificationType, job.SendClassification, job.ResolveLinksWithCurrentData, job.EmailSendDefinition, job.DeduplicateByEmail, job.TriggererSendDefinitionObjectID, job.TriggeredSendCustomerKey, job.jobid as PK FROM _Job AS job WHERE job.JobID is not null and job.IsMultipart is not null and job.IsWrapped is not null and job.Category is not null and job.CreatedDate is not null and job.SalesForceTotalSubscriberCount is not null and job.SalesForceErrorSubscriberCount is not null and job.SendType is not null and job.SuppressTracking is not null and job.ResolveLinksWithCurrentData is not null and job.DeduplicateByEmail is not null and convert(date, job.createddate) >= convert(date, dateadd(dd, -1, getdate()))"
+    };
+    var status_queryDef1 = QueryDefinition.Add(queryDef1);
+
+    var queryDef2 = {
+        Name: "MC_sent_data_view_dailydelta",
+        CustomerKey: "MC_sent_data_view_dailydelta",
+        TargetUpdateType: "Update",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_sent_data_view",
+            CustomerKey: "MC_sent_data_view"
+        },
+        QueryText: "SELECT sent.AccountID, sent.OYBAccountID, sent.JobID, sent.ListID, sent.BatchID, sent.SubscriberID, sent.SubscriberKey, sent.EventDate, sent.Domain, sent.TriggererSendDefinitionObjectID, sent.TriggeredSendCustomerKey, concat(sent.jobid, sent.subscriberkey, FORMAT (sent.eventdate, 'yyyy-MM-dd hh:mm:ss tt')) as PK FROM _Sent AS sent WHERE sent.AccountID is not null and sent.JobID is not null and sent.ListID is not null and sent.BatchID is not null and sent.SubscriberID is not null and sent.SubscriberKey is not null and sent.EventDate is not null and sent.Domain is not null and convert(date, sent.EventDate) >= convert(date, dateadd(dd, -1, getdate()))"
+    };
+    var status_queryDef2 = QueryDefinition.Add(queryDef2);
+
+    var queryDef3 = {
+        Name: "MC_click_data_view_dailydelta",
+        CustomerKey: "MC_click_data_view_dailydelta",
+        TargetUpdateType: "Update",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_click_data_view",
+            CustomerKey: "MC_click_data_view"
+        },
+        QueryText: "SELECT click.AccountID, click.OYBAccountID, click.JobID, click.ListID, click.BatchID, click.SubscriberID, click.SubscriberKey, click.EventDate, click.Domain, click.URL, click.LinkName, click.LinkContent, click.IsUnique, click.TriggererSendDefinitionObjectID, click.TriggeredSendCustomerKey, concat(click.subscriberkey, click.jobid, FORMAT (click.eventdate, 'yyyy-MM-dd hh:mm:ss tt'), click.url, click.isunique) as PK FROM _Click AS click WHERE convert(date, click.EventDate) >= convert(date, dateadd(dd, -1, getdate()))"
+    };
+    var status_queryDef3 = QueryDefinition.Add(queryDef3);
+
+    var queryDef4 = {
+        Name: "MC_complaint_data_view_dailydelta",
+        CustomerKey: "MC_complaint_data_view_dailydelta",
+        TargetUpdateType: "Update",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_complaint_data_view",
+            CustomerKey: "MC_complaint_data_view"
+        },
+        QueryText: "SELECT complaint.AccountID, complaint.OYBAccountID, complaint.JobID, complaint.ListID, complaint.BatchID, complaint.SubscriberID, complaint.SubscriberKey, complaint.EventDate, complaint.IsUnique, complaint.Domain, concat(complaint.subscriberkey, complaint.jobid, FORMAT (complaint.eventdate, 'yyyy-MM-dd hh:mm:ss tt')) as PK FROM _Complaint AS complaint WHERE convert(date, complaint.EventDate) >= convert(date, dateadd(dd, -1, getdate()))"
+    };
+    var status_queryDef4 = QueryDefinition.Add(queryDef4);
+
+    var queryDef5 = {
+        Name: "MC_open_data_view_dailydelta",
+        CustomerKey: "MC_open_data_view_dailydelta",
+        TargetUpdateType: "Update",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_open_data_view",
+            CustomerKey: "MC_open_data_view"
+        },
+        QueryText: "SELECT opened.AccountID, opened.OYBAccountID, opened.JobID, opened.ListID, opened.BatchID, opened.SubscriberID, opened.SubscriberKey, opened.EventDate, opened.Domain, opened.IsUnique, opened.TriggererSendDefinitionObjectID, opened.TriggeredSendCustomerKey, concat(opened.subscriberkey, opened.jobid, FORMAT (opened.eventdate, 'yyyy-MM-dd hh:mm:ss tt')) as PK, FORMAT (opened.eventdate, 'yyyy-MM-dd hh:mm:ss.ff tt') as OpenTime FROM _Open AS opened WHERE convert(date, opened.EventDate) >= convert(date, dateadd(dd, -1, getdate()))"
+    };
+    var status_queryDef5 = QueryDefinition.Add(queryDef5);
+
+    var queryDef6 = {
+        Name: "MC_subscribers_data_view_dailydelta",
+        CustomerKey: "MC_subscribers_data_view_dailydelta",
+        TargetUpdateType: "Overwrite",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_subscribers_data_view",
+            CustomerKey: "MC_subscribers_data_view"
+        },
+        QueryText: "SELECT sub.SubscriberID, sub.DateUndeliverable, sub.DateJoined, sub.DateUnsubscribed, sub.Domain, sub.EmailAddress, sub.BounceCount, sub.SubscriberKey, sub.SubscriberType, sub.Status, sub.Locale, sub.subscriberkey as PK FROM _Subscribers AS sub WHERE sub.SubscriberID is not null and sub.EmailAddress is not null and sub.BounceCount is not null and sub.SubscriberKey is not null and sub.SubscriberType is not null"
+    };
+    var status_queryDef6 = QueryDefinition.Add(queryDef6);
+
+    var queryDef8 = {
+        Name: "MC_undeliverable_sms_data_view_dailydelta",
+        CustomerKey: "MC_undeliverable_sms_data_view_dailydelta",
+        TargetUpdateType: "Overwrite",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_undeliverable_sms_data_view",
+            CustomerKey: "MC_undeliverable_sms_data_view"
+        },
+        QueryText: "SELECT undeliverableSMS.MobileNumber, undeliverableSMS.Undeliverable, undeliverableSMS.BounceCount, undeliverableSMS.FirstBounceDate, undeliverableSMS.HoldDate, undeliverableSMS.MobileNumber as PK FROM _UndeliverableSMS AS undeliverableSMS WHERE undeliverableSMS.MobileNumber is not null and undeliverableSMS.Undeliverable is not null and undeliverableSMS.BounceCount is not null and undeliverableSMS.FirstBounceDate is not null"
+    };
+    var status_queryDef8 = QueryDefinition.Add(queryDef8);
+
+    var queryDef9 = {
+        Name: "MC_journey_data_view_dailydelta",
+        CustomerKey: "MC_journey_data_view_dailydelta",
+        TargetUpdateType: "Overwrite",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_journey_data_view",
+            CustomerKey: "MC_journey_data_view"
+        },
+        QueryText: "SELECT journey.VersionID, journey.JourneyID, journey.JourneyName, journey.VersionNumber, journey.CreatedDate, journey.LastPublishedDate, journey.ModifiedDate, journey.JourneyStatus, concat(journey.journeyid, journey.versionid) as PK FROM _Journey AS journey WHERE journey.VersionID is not null and journey.JourneyID is not null and journey.JourneyName is not null and journey.VersionNumber is not null and journey.CreatedDate is not null and journey.ModifiedDate is not null and journey.JourneyStatus is not null"
+    };
+    var status_queryDef9 = QueryDefinition.Add(queryDef9);
+
+    var queryDef10 = {
+        Name: "MC_journey_activity_data_view_dailydelta",
+        CustomerKey: "MC_journey_activity_data_view_dailydelta",
+        TargetUpdateType: "Overwrite",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_journey_activity_data_view",
+            CustomerKey: "MC_journey_activity_data_view"
+        },
+        QueryText: "SELECT journeyActivity.VersionID, journeyActivity.ActivityID, journeyActivity.ActivityName, journeyActivity.ActivityExternalKey, journeyActivity.JourneyActivityObjectID, journeyActivity.ActivityType, journeyActivity.ActivityID as PK FROM _JourneyActivity AS journeyActivity WHERE journeyActivity.VersionID is not null and journeyActivity.ActivityID is not null and journeyActivity.ActivityExternalKey is not null"
+    };
+    var status_queryDef10 = QueryDefinition.Add(queryDef10);
+
+    var queryDef11 = {
+        Name: "MC_bounce_data_view_dailydelta",
+        CustomerKey: "MC_bounce_data_view_dailydelta",
+        TargetUpdateType: "Update",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_bounce_data_view",
+            CustomerKey: "MC_bounce_data_view"
+        },
+        QueryText: "SELECT bounce.AccountID, bounce.OYBAccountID, bounce.JobID, bounce.ListID, bounce.BatchID, bounce.SubscriberID, bounce.SubscriberKey, bounce.EventDate, bounce.IsUnique, bounce.Domain, bounce.BounceCategoryID, bounce.BounceCategory, bounce.BounceSubcategoryID, bounce.BounceSubcategory, bounce.BounceTypeID, bounce.BounceType, bounce.SMTPBounceReason, bounce.SMTPMessage, bounce.SMTPCode, bounce.TriggererSendDefinitionObjectID, bounce.TriggeredSendCustomerKey, concat(bounce.subscriberkey, bounce.jobid) as PK FROM _Bounce AS bounce WHERE convert(date, bounce.EventDate) >= convert(date, dateadd(dd, -1, getdate()))"
+    };
+    var status_queryDef11 = QueryDefinition.Add(queryDef11);
+
+    var queryDef13 = {
+        Name: "MC_sms_message_tracking_dailydelta",
+        CustomerKey: "MC_sms_message_tracking_dailydelta",
+        TargetUpdateType: "Update",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_sms_message_tracking",
+            CustomerKey: "MC_sms_message_tracking"
+        },
+        QueryText: "SELECT smsTracking.MobileMessageTrackingID, smsTracking.EID, smsTracking.MID, smsTracking.Mobile, smsTracking.MessageID, smsTracking.KeywordID, smsTracking.CodeID, smsTracking.ConversationID, smsTracking.CampaignID, smsTracking.Sent, smsTracking.Delivered, smsTracking.Undelivered, smsTracking.Unsub, smsTracking.OptIn, smsTracking.OptOut, smsTracking.Outbound, smsTracking.Inbound, smsTracking.CreateDateTime, smsTracking.ModifiedDateTime, smsTracking.ActionDateTime, REPLACE(smsTracking.MessageText,CHAR(13)+CHAR(10),' ') as MessageText, smsTracking.IsTest, smsTracking.MobileMessageRecurrenceID, smsTracking.ResponseToMobileMessageTrackingID, smsTracking.IsValid, smsTracking.InvalidationCode, smsTracking.SMSJobID, smsTracking.SMSBatchID, smsTracking.SendID, smsTracking.SendSplitID, smsTracking.SendSegmentID, smsTracking.SendJobID, smsTracking.SendGroupID, smsTracking.SendPersonID, smsTracking.SubscriberID, smsTracking.SubscriberKey, smsTracking.SMSStandardStatusCodeId, smsTracking.Description, smsTracking.Name, smsTracking.ShortCode, smsTracking.SharedKeyword, smsTracking.Ordinal, smsTracking.FromName, smsTracking.JBDefinitionID, smsTracking.JBActivityID, smsTracking.MobileMessageTrackingID as PK FROM _SMSMessageTracking AS smsTracking WHERE convert(date, smsTracking.CreateDateTime) >= convert(date, dateadd(dd, -1, getdate()))"
+    };
+    var status_queryDef13 = QueryDefinition.Add(queryDef13);
+
+    var queryDef14 = {
+        Name: "MC_sms_subscription_log_dailydelta",
+        CustomerKey: "MC_sms_subscription_log_dailydelta",
+        TargetUpdateType: "Update",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_sms_subscription_log",
+            CustomerKey: "MC_sms_subscription_log"
+        },
+        QueryText: "SELECT smsSubLog.LogDate, smsSubLog.SubscriberKey, smsSubLog.MobileSubscriptionID, smsSubLog.SubscriptionDefinitionID, smsSubLog.MobileNumber, smsSubLog.OptOutStatusID, smsSubLog.OptOutMethodID, smsSubLog.OptOutDate, smsSubLog.OptInStatusID, smsSubLog.OptInMethodID, smsSubLog.OptInDate, smsSubLog.Source, smsSubLog.CreatedDate, smsSubLog.ModifiedDate, concat(smsSubLog.mobilesubscriptionid, smsSubLog.mobilenumber, smsSubLog.optinstatusid, smsSubLog.optoutstatusid) as PK FROM _SMSSubscriptionLog AS smsSubLog WHERE convert(date, smsSubLog.CreatedDate) >= convert(date, dateadd(dd, -1, getdate()))"
+    };
+    var status_queryDef14 = QueryDefinition.Add(queryDef14);
+
+    var queryDef15 = {
+        Name: "MC_unsubscribe_data_view_dailydelta",
+        CustomerKey: "MC_unsubscribe_data_view_dailydelta",
+        TargetUpdateType: "Update",
+        TargetType: "DE",
+        Target: {
+            Name: "MC_unsubscribe_data_view",
+            CustomerKey: "MC_unsubscribe_data_view"
+        },
+        QueryText: "SELECT unsub.AccountID, unsub.OYBAccountID, unsub.JobID, unsub.ListID, unsub.BatchID, unsub.SubscriberID, unsub.SubscriberKey, unsub.EventDate, unsub.IsUnique, unsub.Domain, concat(unsub.subscriberkey, unsub.jobid, unsub.listid, FORMAT (unsub.eventdate, 'yyyy-MM-dd hh:mm:ss tt')) as PK FROM _Unsubscribe AS unsub WHERE convert(date, unsub.eventDate) >= convert(date, dateadd(dd, -1, getdate()))"
+    };
+    var status_queryDef15 = QueryDefinition.Add(queryDef15);
+
+} catch (ex) {
+    Write("error message: " + ex);
+}
+</script>
