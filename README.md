@@ -1,13 +1,14 @@
 # Create Marketing Cloud Data Views clones
 
-Two scripts (SSJS) that clones data extensions from the data views and create the queries that populate them.
+Three scripts (SSJS) that clones data extensions from the data views and create the queries that populate them.
 
 ## Steps
 
 1. Download `all-data-views-de.html` and paste it into a _Cloud Page_ or a Script activity in the automation studio
-2. Download `all-data-views-queries.html` and paste it into a _Cloud Page_ or a Script activity in the automation studio
-3. Under `Email > subscribers > data extensions` location you will find your data extensions
-4. Under `Automation Studio > Activities > All Queries` location you will find the query activities
+2. Download `all-data-views-sql.html` and paste it into a _Cloud Page_ or a Script activity in the automation studio to do the initial population of the DEs
+3. Download 'all-data-views-sql-daily-delta.html' and paste it into a _Cloud Page_ or a Script activity in the automation studio. This can be run daily to add deltas to the DEs.
+4. Under `Email > subscribers > data extensions` location you will find your data extensions
+5. Under `Automation Studio > Activities > All Queries` location you will find the query activities
 
 
 ## Are included
@@ -23,7 +24,7 @@ Two scripts (SSJS) that clones data extensions from the data views and create th
 - _Journey
 - _JourneyActivity
 - _Bounce
-- _PushAddress
+- _Unsubscribe
 - _smsmessagetracking
 - _SMSSubscriptionLog
 

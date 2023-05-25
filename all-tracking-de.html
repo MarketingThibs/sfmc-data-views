@@ -5,6 +5,12 @@
             "CustomerKey": "MC_job_data_view",
             "Name": "MC_job_data_view",
             "Fields": [{
+                "FieldType": "Text",
+                "MaxLength": 512,
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
                 "Name": "JobID",
                 "IsRequired": true,
                 "FieldType": "Number"
@@ -153,6 +159,12 @@
             "CustomerKey": "MC_sent_data_view",
             "Name": "MC_sent_data_view",
             "Fields": [{
+                "FieldType": "Text",
+                "MaxLength": 512,
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
                 "FieldType": "Number",
                 "IsRequired": true,
                 "Name": "AccountID"
@@ -209,6 +221,12 @@
             "CustomerKey": "MC_click_data_view",
             "Name": "MC_click_data_view",
             "Fields": [{
+                "FieldType": "Text",
+                "MaxLength": 1024,
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
                 "FieldType": "Number",
                 "IsRequired": true,
                 "Name": "AccountID"
@@ -284,6 +302,12 @@
             "CustomerKey": "MC_complaint_data_view",
             "Name": "MC_complaint_data_view",
             "Fields": [{
+                "FieldType": "Text",
+                "MaxLength": 512,
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
                 "FieldType": "Number",
                 "IsRequired": true,
                 "Name": "AccountID"
@@ -334,6 +358,12 @@
             "CustomerKey": "MC_open_data_view",
             "Name": "MC_open_data_view",
             "Fields": [{
+                "FieldType": "Text",
+                "MaxLength": 512,
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
                 "FieldType": "Number",
                 "IsRequired": true,
                 "Name": "AccountID"
@@ -373,7 +403,7 @@
                 "Name": "Domain"
             }, {
                 "FieldType": "Boolean",
-                "IsRequired": true,
+                "IsRequired": false ,
                 "Name": "IsUnique"
             }, {
                 "FieldType": "Text",
@@ -395,6 +425,12 @@
             "CustomerKey": "MC_subscribers_data_view",
             "Name": "MC_subscribers_data_view",
             "Fields": [{
+                "FieldType": "Text",
+                "MaxLength": 512,
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
                 "FieldType": "Number",
                 "IsRequired": true,
                 "Name": "SubscriberID"
@@ -448,60 +484,17 @@
         };
         var myMC_subscribers_data_view = DataExtension.Add(MC_subscribers_data_view);
 
-        var MC_subscribers_sms_data_view = {
-            "CustomerKey": "MC_subscribers_sms_data_view",
-            "Name": "MC_subscribers_sms_data_view",
-            "Fields": [{
-                "FieldType": "Number",
-                "IsRequired": true,
-                "Name": "SubscriberId"
-            }, {
-                "FieldType": "Text",
-                "MaxLength": 100,
-                "IsRequired": true,
-                "Name": "SubscriberKey"
-            }, {
-                "FieldType": "Phone",
-                "MaxLength": 50,
-                "IsRequired": true,
-                "Name": "MobileNumber"
-            }, {
-                "FieldType": "Boolean",
-                "IsRequired": true,
-                "Name": "TransactionalOptIn"
-            }, {
-                "FieldType": "Date",
-                "IsRequired": true,
-                "Name": "TransactionalOptInDate"
-            }, {
-                "FieldType": "Date",
-                "IsRequired": false,
-                "Name": "TransactionalOptOutDate"
-            }, {
-                "FieldType": "Boolean",
-                "IsRequired": true,
-                "Name": "MarketingOptIn"
-            }, {
-                "FieldType": "Date",
-                "IsRequired": true,
-                "Name": "MarketingOptInDate"
-            }, {
-                "FieldType": "Date",
-                "IsRequired": false,
-                "Name": "MarketingOptOutDate"
-            }, {
-                "FieldType": "Text",
-                "MaxLength": 50,
-                "IsRequired": true,
-                "Name": "SmsCarrierName"
-            }]
-        };
-        var myMC_subscribers_sms_data_view = DataExtension.Add(MC_subscribers_sms_data_view);
-
+        
         var MC_undeliverable_sms_data_view = {
             "CustomerKey": "MC_undeliverable_sms_data_view",
             "Name": "MC_undeliverable_sms_data_view",
             "Fields": [{
+                "FieldType": "Text",
+                "MaxLength": 512,
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
                 "FieldType": "Text",
                 "MaxLength": 20,
                 "IsRequired": true,
@@ -531,6 +524,12 @@
             "Name": "MC_journey_data_view",
             "Fields": [{
                 "FieldType": "Text",
+                "MaxLength": 512,
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
+                "FieldType": "Text",
                 "MaxLength": 36,
                 "IsRequired": true,
                 "Name": "VersionID"
@@ -541,7 +540,7 @@
                 "Name": "JourneyID"
             }, {
                 "FieldType": "Text",
-                "MaxLength": 100,
+                "MaxLength": 200,
                 "IsRequired": true,
                 "Name": "JourneyName"
             }, {
@@ -576,6 +575,12 @@
                 "FieldType": "Text",
                 "MaxLength": 36,
                 "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
+                "FieldType": "Text",
+                "MaxLength": 36,
+                "IsRequired": true,
                 "Name": "VersionID"
             }, {
                 "FieldType": "Text",
@@ -584,12 +589,12 @@
                 "Name": "ActivityID"
             }, {
                 "FieldType": "Text",
-                "MaxLength": 100,
+                "MaxLength": 200,
                 "IsRequired": false,
                 "Name": "ActivityName"
             }, {
                 "FieldType": "Text",
-                "MaxLength": 100,
+                "MaxLength": 200,
                 "IsRequired": true,
                 "Name": "ActivityExternalKey"
             }, {
@@ -599,7 +604,7 @@
                 "Name": "JourneyActivityObjectID"
             }, {
                 "FieldType": "Text",
-                "MaxLength": 256,
+                "MaxLength": 512,
                 "IsRequired": false,
                 "Name": "ActivityType"
             }]
@@ -610,6 +615,12 @@
             "CustomerKey": "MC_bounce_data_view",
             "Name": "MC_bounce_data_view",
             "Fields": [{
+                "FieldType": "Text",
+                "MaxLength": 512,
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
                 "FieldType": "Number",
                 "IsRequired": true,
                 "Name": "AccountID"
@@ -706,170 +717,15 @@
         };
         var myMC_bounce_data_view = DataExtension.Add(MC_bounce_data_view);
 
-        var MC_push_address_data_view = {
-            "CustomerKey": "MC_push_address_data_view",
-            "Name": "MC_push_address_data_view",
-            "Fields": [{
-                "Name": "CreatedBy",
-                "FieldType": "Text",
-                "MaxLength": 100
-            }, {
-                "Name": "PlatformVersion",
-                "FieldType": "Text",
-                "MaxLength": 100
-            }, {
-                "Name": "CreatedDate",
-                "FieldType": "Date",
-                "IsRequired": true
-
-            }, {
-                "Name": "OptOutStatusID",
-                "FieldType": "Text",
-                "MaxLength": 100
-            }, {
-                "Name": "OptInStatusID",
-                "FieldType": "Text",
-                "IsRequired": true,
-                "MaxLength": 100
-            }, {
-                "Name": "Alias",
-                "FieldType": "Text",
-                "MaxLength": 100
-
-            }, {
-                "Name": "ProviderToken",
-                "FieldType": "Text",
-                "MaxLength": 200
-            }, {
-                "Name": "Status",
-                "FieldType": "Text",
-                "MaxLength": 100
-            }, {
-                "Name": "DeviceID",
-                "FieldType": "Text",
-                "MaxLength": 100,
-                "IsRequired": true
-            }, {
-                "Name": "Badge",
-                "FieldType": "Number"
-            }, {
-                "Name": "IsHonorDST",
-                "FieldType": "Boolean"
-            }, {
-                "Name": "LocationEnabled",
-                "FieldType": "Boolean"
-            }, {
-                "Name": "ZipCode",
-                "FieldType": "Text",
-                "MaxLength": 20
-
-            }, {
-                "Name": "SourceObjectId",
-                "FieldType": "Text",
-                "MaxLength": 200
-
-            }, {
-                "Name": "City",
-                "FieldType": "Text",
-                "MaxLength": 200
-
-            }, {
-                "Name": "Platform",
-                "FieldType": "Text",
-                "MaxLength": 100
-
-            }, {
-                "Name": "TimeZone",
-                "FieldType": "Text",
-                "MaxLength": 50
-
-            }, {
-                "Name": "State",
-                "FieldType": "Text",
-                "MaxLength": 200
-            }, {
-                "Name": "HardwareId",
-                "FieldType": "Text",
-                "MaxLength": 100
-            }, {
-                "Name": "OptOutDate",
-                "FieldType": "Date"
-            }, {
-                "Name": "UTCOffset",
-                "FieldType": "Decimal",
-                "MaxLength": 4,
-                "Scale": 2
-            }, {
-                "Name": "DeviceType",
-                "FieldType": "Text",
-                "MaxLength": 20
-            }, {
-                "Name": "FirstName",
-                "FieldType": "Text",
-                "MaxLength": 100
-
-            }, {
-                "Name": "ModifiedBy",
-                "FieldType": "Text",
-                "MaxLength": 100
-            }, {
-                "Name": "OptInMethodID",
-                "FieldType": "Text",
-                "MaxLength": 100
-            }, {
-                "Name": "Device",
-                "FieldType": "Text",
-                "MaxLength": 100
-
-            }, {
-                "Name": "Channel",
-                "FieldType": "Text",
-                "MaxLength": 20
-
-            }, {
-                "Name": "OptInDate",
-                "FieldType": "Date"
-            }, {
-                "Name": "APID",
-                "FieldType": "Text",
-                "MaxLength": 38,
-                "IsRequired": true
-
-            }, {
-                "Name": "SystemToken",
-                "FieldType": "Text",
-                "MaxLength": 4000
-
-            }, {
-                "Name": "OptOutMethodID",
-                "FieldType": "Text",
-                "MaxLength": 100
-            }, {
-                "Name": "ModifiedDate",
-                "FieldType": "Date",
-                "IsRequired": true
-            }, {
-                "Name": "LastName",
-                "FieldType": "Text",
-                "MaxLength": 100
-
-            }, {
-                "Name": "ContactID",
-                "FieldType": "Text",
-                "IsRequired": true,
-                "MaxLength": 100
-            }, {
-                "Name": "Source",
-                "FieldType": "Text",
-                "MaxLength": 100
-            }]
-        };
-        var myMC_push_address_data_view = DataExtension.Add(MC_push_address_data_view);
-
         var MC_sms_message_tracking = {
             "CustomerKey": "MC_sms_message_tracking",
             "Name": "MC_sms_message_tracking",
             "Fields": [{
+                "FieldType": "Number",
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
                 "FieldType": "Number",
                 "IsRequired": true,
                 "Name": "MobileMessageTrackingID"
@@ -1014,6 +870,12 @@
             "CustomerKey": "MC_sms_subscription_log",
             "Name": "MC_sms_subscription_log",
             "Fields": [{
+                "FieldType": "Text",
+                "MaxLength": 512,
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
                 "FieldType": "Date",
                 "IsRequired": false,
                 "Name": "LogDate"
@@ -1022,9 +884,15 @@
                 "IsRequired": true,
                 "Name": "MobileSubscriptionID"
             }, {
-                "FieldType": "Number",
+                "FieldType": "Text",
+                "MaxLength": 255,
                 "IsRequired": true,
                 "Name": "SubscriptionDefinitionID"
+            }, {
+                "FieldType": "Text",
+                "MaxLength": 255,
+                "IsRequired": true,
+                "Name": "SubscriberKey"
             }, {
                 "FieldType": "Text",
                 "MaxLength": 20,
@@ -1070,6 +938,62 @@
 
         };
         var myMC_sms_subscription_log = DataExtension.Add(MC_sms_subscription_log);
+
+         var MC_unsubscribe_data_view = {
+            "CustomerKey": "MC_unsubscribe_data_view",
+            "Name": "MC_unsubscribe_data_view",
+            "Fields": [{
+                "FieldType": "Text",
+                "MaxLength": 512,
+                "IsRequired": true,
+                "Name": "PK",
+                "PrimaryKey": true
+            }, {
+                "FieldType": "Number",
+                "IsRequired": true,
+                "Name": "AccountID"
+            }, {
+                "FieldType": "Number",
+                "IsRequired": false,
+                "Name": "OYBAccountID"
+            }, {
+                "FieldType": "Number",
+                "IsRequired": true,
+                "Name": "JobID"
+            }, {
+                "FieldType": "Number",
+                "IsRequired": true,
+                "Name": "ListID"
+            }, {
+                "FieldType": "Number",
+                "IsRequired": true,
+                "Name": "BatchID"
+            }, {
+                "FieldType": "Number",
+                "IsRequired": true,
+                "Name": "SubscriberID"
+            }, {
+                "FieldType": "Text",
+                "MaxLength": 254,
+                "IsRequired": true,
+                "Name": "SubscriberKey"
+            }, {
+                "FieldType": "Date",
+                "IsRequired": true,
+                "Name": "EventDate"
+            }, {
+                "FieldType": "Boolean",
+                "IsRequired": true,
+                "Name": "IsUnique"
+            }, {
+                "FieldType": "Text",
+                "MaxLength": 128,
+                "IsRequired": true,
+                "Name": "Domain"
+            }]
+
+        };
+        var myMC_unsubscribe_data_view = DataExtension.Add(MC_unsubscribe_data_view);
 
     } catch (ex) {
         Write("error message: " + ex);
